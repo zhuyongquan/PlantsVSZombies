@@ -13,7 +13,7 @@ public class Plant : MonoBehaviour
     PlantState plantState = PlantState.Disable;
     public PlantType plantType = PlantType.SunFlower;
 
-
+    public int HP = 100;
     private void Start()
     {
         TransitionToDisable();
@@ -35,7 +35,7 @@ public class Plant : MonoBehaviour
         }
     }
 
-    private void DisableUpdate()
+     void DisableUpdate()
     {
         
     }
@@ -43,11 +43,11 @@ public class Plant : MonoBehaviour
     {
      
     }
-    private void TransitionToDisable()//音強
+     void TransitionToDisable()//音強
     {
         plantState = PlantState.Disable;
         GetComponent<Animator>().enabled = false;
-
+        GetComponent<Collider2D>().enabled= false;
 
     }
 
@@ -55,10 +55,24 @@ public class Plant : MonoBehaviour
     {
         plantState = PlantState.Enable;
         GetComponent<Animator>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
+
+    }
+
+    public void TakeDamage(int damage)
+    {
+        this.HP -= damage;
+        if (HP <= 0) 
+        {
+            Die();
+        }
 
 
     }
 
- 
+    private void Die()
+    {
+        Destroy(gameObject);  
+    }
 
 }
