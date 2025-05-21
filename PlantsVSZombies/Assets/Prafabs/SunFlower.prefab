@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4699023553819783833}
   - component: {fileID: 2960413799886906973}
   - component: {fileID: 8169935923199843872}
-  - component: {fileID: 1842620800409902651}
+  - component: {fileID: 8984092307414644075}
   m_Layer: 0
   m_Name: SunFlower
   m_TagString: Untagged
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5498384109465833956}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.92, y: -0.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2960413799886906973
 SpriteRenderer:
@@ -72,11 +72,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1743959695
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 020960385ebb5014db0fa7ac7469483b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7176471, g: 0.7176471, b: 0.7176471, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -108,7 +108,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1842620800409902651
+--- !u!114 &8984092307414644075
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,6 +117,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5498384109465833956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90a4f5f9e87f1314f903f1b9deeb4158, type: 3}
+  m_Script: {fileID: 11500000, guid: 928c1e537b0fef248a69fb7d55bd0cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plantType: 0
+  produceDuration: 5
+  sunPrefab: {fileID: 2636883311382360327, guid: 4724305c358da38409cda27073421594, type: 3}
+  jumpMinDistance: 0.3
+  jumpMaxDistance: 2

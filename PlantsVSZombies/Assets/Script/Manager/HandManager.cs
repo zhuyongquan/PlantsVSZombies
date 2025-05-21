@@ -16,19 +16,23 @@ public class HandManager : MonoBehaviour
 
     private void Update()
     {
-        FollowCursor();
+        FollowCursor();//让植物跟随鼠标移动
     }
 
 
 
-    public void AddPlant(PlantType plantType  )//把植物拿到手上
+    public bool AddPlant(PlantType plantType  )//把植物拿到手上
     {
+        if (currentPlant != null) return false;//先判断手上有没有植物
+
+
         Plant plantPrefab = GetPlantPrefab(plantType);
         if (plantPrefab == null) 
         {
-            print("要种植的植物不存在");return;
+            print("要种植的植物不存在");return false;
         }
         currentPlant = GameObject.Instantiate(plantPrefab);//实例化出来
+        return true;
 
 
     }
@@ -56,12 +60,16 @@ public class HandManager : MonoBehaviour
         currentPlant.transform.position = mouseWorldPosition;
     }
 
+    public void OnCellClick(Cell cell) 
+    {
+        if (currentPlant == null) return;
+        bool isSuccess = cell.AddPlant(currentPlant);
 
-
-
-
-
-
-
+        if (isSuccess) 
+        { 
+            currentPlant = null;    
+        }
+       
+    }
 
 }

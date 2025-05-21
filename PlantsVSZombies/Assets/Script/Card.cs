@@ -13,7 +13,7 @@ enum CardState
 
 public enum PlantType
 {
-    SunFlwer,
+    SunFlower,
     PeaShooter
 }
 
@@ -21,11 +21,11 @@ public class Card : MonoBehaviour
 {
 
     private CardState cardState = CardState.Cooling;
-    public PlantType plantType = PlantType.SunFlwer;
+    public PlantType plantType = PlantType.SunFlower;
     public GameObject CardLight;
-    public GameObject CardGray;
-    public Image CardMask;
-   
+    public GameObject CardGray;//因为可以直接用SetActive去控制使用，使用GameObject
+    public Image CardMask;//要控制fillAmount，使用Image
+
     [SerializeField]
     public float cdTime  = 2;//冷却时间
     private float cdTimer = 0;//计时器
@@ -68,7 +68,7 @@ public class Card : MonoBehaviour
     {
         if (needSunPoint <= SunManager.Instance.SunPoint)
         {
-            TransitionToReady();//够就转换
+            TransitionToReady();//够就转换，可以种植
         }
 
     }
@@ -76,7 +76,7 @@ public class Card : MonoBehaviour
     void ReadyUpdate()
     {
 
-        if (needSunPoint > SunManager.Instance.SunPoint)
+        if (needSunPoint > SunManager.Instance.SunPoint)//阳光不足
         {
             TransitionToWaittingSun();//切换到等待状态
         }
@@ -119,9 +119,13 @@ public class Card : MonoBehaviour
         if (needSunPoint > SunManager.Instance.SunPoint)
             return;
         //消耗阳光并种植
-        SunManager.Instance.SubSun(needSunPoint);//减去对应阳光
-        HandManager.instance.AddPlant(plantType);
-        TransitionToCooling();
+       
+       bool isSuccess =   HandManager.instance.AddPlant(plantType);
+        if (isSuccess)
+        {
+            SunManager.Instance.SubSun(needSunPoint);//减去对应阳光
+            TransitionToCooling();
+        }
 
     }
 

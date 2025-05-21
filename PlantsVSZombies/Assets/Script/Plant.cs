@@ -11,9 +11,16 @@ enum PlantState
 public class Plant : MonoBehaviour
 {
     PlantState plantState = PlantState.Disable;
-    public PlantType plantType = PlantType.SunFlwer;
+    public PlantType plantType = PlantType.SunFlower;
 
-    private void Update()
+
+    private void Start()
+    {
+        TransitionToDisable();
+    }
+
+
+    private void Update()//植物的放在鼠标上和种植以后的两种状态  动和不动
     {
         switch (plantState)
         {
@@ -32,11 +39,26 @@ public class Plant : MonoBehaviour
     {
         
     }
-    private void EnableUpdate()
+    protected  virtual  void EnableUpdate()
     {
+     
+    }
+    private void TransitionToDisable()//不动
+    {
+        plantState = PlantState.Disable;
+        GetComponent<Animator>().enabled = false;
+
 
     }
 
+    public  void TransitionToEnable()//动
+    {
+        plantState = PlantState.Enable;
+        GetComponent<Animator>().enabled = true;
 
+
+    }
+
+ 
 
 }
