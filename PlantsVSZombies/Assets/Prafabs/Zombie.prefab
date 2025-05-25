@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7026976714428792275}
   m_Layer: 0
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,6 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
+  AtkValue: 30
+  atkDuration: 2
+  HP: 100
+  zombieHeadPrefab: {fileID: 4778998011453945066, guid: 84a1f2b8de5496b47894c081f910eac4, type: 3}
 --- !u!61 &2572787518953362564
 BoxCollider2D:
   m_ObjectHideFlags: 0

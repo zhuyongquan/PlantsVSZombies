@@ -9,7 +9,7 @@ public class PeaShooter : Plant
     public Transform shootPointTransform;//¶¨Î»Éä»÷Î»ÖÃ
     public PeaBullet peaBulletPrafab;
     public float BulletSpeed = 5;
-
+    public int atkValue = 10;
 
 
     protected override void EnableUpdate()
@@ -26,9 +26,11 @@ public class PeaShooter : Plant
 
     void Shoot()
     {
+        AudioManager.instance.PlayClip(Config.shoot);
         PeaBullet pb =  GameObject.Instantiate(peaBulletPrafab, shootPointTransform.position,Quaternion.identity);
         pb.SetSpeed(BulletSpeed);
 
+        pb.SetATKValue(atkValue);
     }
 
 

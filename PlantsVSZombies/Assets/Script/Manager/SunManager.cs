@@ -48,7 +48,12 @@ public class SunManager : MonoBehaviour
 
 
     }
+    public void StopProduce()
+    {
+        isStarProduce = false;
 
+
+    }
 
 
     private void UpdateSunPointText()  //œ‘ æ—Ùπ‚

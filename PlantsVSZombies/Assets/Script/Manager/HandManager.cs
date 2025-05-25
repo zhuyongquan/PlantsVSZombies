@@ -67,7 +67,8 @@ public class HandManager : MonoBehaviour
 
         if (isSuccess) 
         { 
-            currentPlant = null;    
+            currentPlant = null;
+            AudioManager.instance.PlayClip(Config.plant);
         }
        
     }

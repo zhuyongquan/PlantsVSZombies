@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Plant
+  - Zombie
+  - House
   layers:
   - Default
   - TransparentFX

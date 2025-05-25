@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 enum CardState
 {
+    Disable,
     Cooling,
     WaittingSun,
     Ready
@@ -20,7 +21,7 @@ public enum PlantType
 public class Card : MonoBehaviour
 {
 
-    private CardState cardState = CardState.Cooling;
+    private CardState cardState = CardState.Disable;
     public PlantType plantType = PlantType.SunFlower;
     public GameObject CardLight;
     public GameObject CardGray;//因为可以直接用SetActive去控制使用，使用GameObject
@@ -114,8 +115,19 @@ public class Card : MonoBehaviour
 
     }
 
+
+
+
+
     public void OnClick()
     {
+        AudioManager.instance.PlayClip(Config.btn_click,2);
+
+
+        if (cardState == CardState.Disable)
+            return;
+
+
         if (needSunPoint > SunManager.Instance.SunPoint)
             return;
         //消耗阳光并种植
@@ -129,8 +141,17 @@ public class Card : MonoBehaviour
 
     }
 
+    public void DisableCard()
+    {
+        cardState = CardState.Disable;
+    }
 
-        
+    public void EnableCard()
+    {
+        TransitionToCooling();
+    }
+
+
 
 
 }

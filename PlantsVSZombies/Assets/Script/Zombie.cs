@@ -6,7 +6,8 @@ enum ZombieState
 { 
     Move,
     Eat,
-    Die
+    Die,
+    Pause
 }
 
 
@@ -20,11 +21,16 @@ public class Zombie : MonoBehaviour
     public float atkDuration = 2;//攻击频率
     private float atkTimer = 0;
     private Plant currentEatPlant; //当前正在吃的食物
+    public int HP = 100;
+    private int currentHP ;  //当前HP
+    public GameObject zombieHeadPrefab;
+    private bool haveHead = true;//让头掉落动画只执行一次
 
     void Start()
     {
         rgd = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        currentHP = HP;
     }
 
     // Update is called once per frame
@@ -57,6 +63,8 @@ public class Zombie : MonoBehaviour
         atkTimer += Time.deltaTime;
         if (atkTimer > atkDuration && currentEatPlant != null) 
         {
+            AudioManager.instance.PlayClip(Config.eat);
+
             currentEatPlant.TakeDamage(AtkValue);
             atkTimer = 0;
         }
@@ -72,6 +80,13 @@ public class Zombie : MonoBehaviour
             TransitionToEat();
             currentEatPlant = collision.GetComponent<Plant>();
         }
+       else if (collision.tag == "House") //碰到了房子
+        {
+            GameManager.instance.GameEndFail();
+        }
+
+
+
 
     }
 
@@ -88,6 +103,48 @@ public class Zombie : MonoBehaviour
     {
         zombieState = ZombieState.Eat;
         atkTimer = 0;
+     
+    }
+
+
+   public  void TransitionToPause()
+    {
+        zombieState = ZombieState.Pause;
+        anim.enabled = false;
+        rgd.bodyType = RigidbodyType2D.Static;
+    }
+
+
+
+
+    public void TakeDamage(int damage)
+    {
+        if (currentHP <= 0) return;
+        this.currentHP -= damage;
+        if (currentHP <= 0)
+        {
+            currentHP = -1;
+            Dead();
+        }
+        float hpPercent = currentHP *1f / HP;
+        anim.SetFloat("HPPercent", hpPercent);
+        if (hpPercent < 0.5f && haveHead)//当僵尸血量过半
+        {
+            haveHead = false;
+            GameObject go = GameObject.Instantiate(zombieHeadPrefab,transform.position,Quaternion.identity);//僵尸头掉落
+            Destroy(go,2);
+        }
+
+    }
+    private void Dead()
+    {
+        if (zombieState == ZombieState.Die) return;
+       
+        zombieState = ZombieState.Die;
+        GetComponent<Collider2D>().enabled = false;
+        ZombieManager.Instance.RemovZombie(this);
+        Destroy(this.gameObject,2);
+
     }
 
 
